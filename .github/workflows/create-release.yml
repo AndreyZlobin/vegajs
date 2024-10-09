@@ -59,7 +59,6 @@ jobs:
         env:
           NPM_PUBLISH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-        #Update versions...
       - name: Update versions in workspace packages
         run: |
           # Iterate through each package in the workspace
