@@ -7,6 +7,4 @@ export type {
   WithModalProps,
 } from './types';
 
-export { useModal, ModalProvider } from './hooks';
-
 export { ModalContainer, ModalController };
