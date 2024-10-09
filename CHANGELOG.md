@@ -1,3 +1,11 @@
+## 1.0.0-beta.1 (2024-10-09)
+
+
+### 🛠️ Chores
+
+* init ([14dce65](https://github.com/AndreyZlobin/vegajs/commit/14dce6531c94df7de2b120f957fb3f93f29617ed))
+* init all ([75b071a](https://github.com/AndreyZlobin/vegajs/commit/75b071a6e018153ea1dfd10b8f1482840fa3043a))
+
 ## [1.0.0-beta.21](https://github.com/AndreyZlobin/open-kit/compare/1.0.0-beta.20...1.0.0-beta.21) (2024-10-09)
 
 
