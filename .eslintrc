@@ -1,0 +1,3 @@
+{
+  "extends": "@self-kit/eslint-config-node-ts"
+}

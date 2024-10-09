@@ -1,0 +1,17 @@
+{
+  "name": "@vegajs/tests",
+  "type": "module",
+  "private": true,
+  "browser": "./src/index.ts",
+  "main": "./src/index.ts",
+  "scripts": {
+    "lint:types": "tsc --noEmit",
+    "lint": "eslint --fix --quiet",
+    "lint:all": "eslint \"**/*.{ts,tsx}\" --fix --quiet"
+  },
+  "dependencies": {
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@testing-library/jest-dom": "^5.17.0"
+  }
+}
