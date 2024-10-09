@@ -3,6 +3,15 @@
 
 ### 🛠️ Chores
 
+* **release:** 1.0.0-beta.4 [skip ci] ([4161c04](https://github.com/AndreyZlobin/vegajs/commit/4161c04939d3691e7467fd519c1a0c4c390d6cdc))
+* remove unused ([1a2c7dc](https://github.com/AndreyZlobin/vegajs/commit/1a2c7dcfe74e4aa29acd06f1a6acbf375dec4359))
+* update bundle ([252651e](https://github.com/AndreyZlobin/vegajs/commit/252651e14a5f69476de84b2ddeac2db4e48fcb5e))
+
+## [1.0.0-beta.4](https://github.com/AndreyZlobin/vegajs/compare/1.0.0-beta.3...1.0.0-beta.4) (2024-10-09)
+
+
+### 🛠️ Chores
+
 * remove unused ([1a2c7dc](https://github.com/AndreyZlobin/vegajs/commit/1a2c7dcfe74e4aa29acd06f1a6acbf375dec4359))
 
 ## [1.0.0-beta.3](https://github.com/AndreyZlobin/vegajs/compare/1.0.0-beta.2...1.0.0-beta.3) (2024-10-09)
