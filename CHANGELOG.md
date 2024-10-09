@@ -1,3 +1,10 @@
+## [1.0.0-beta.4](https://github.com/AndreyZlobin/vegajs/compare/1.0.0-beta.3...1.0.0-beta.4) (2024-10-09)
+
+
+### 🛠️ Chores
+
+* remove unused ([1a2c7dc](https://github.com/AndreyZlobin/vegajs/commit/1a2c7dcfe74e4aa29acd06f1a6acbf375dec4359))
+
 ## [1.0.0-beta.3](https://github.com/AndreyZlobin/vegajs/compare/1.0.0-beta.2...1.0.0-beta.3) (2024-10-09)
 
 
