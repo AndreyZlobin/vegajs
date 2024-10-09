@@ -1,3 +1,10 @@
+## [1.0.0-beta.2](https://github.com/AndreyZlobin/vegajs/compare/1.0.0-beta.1...1.0.0-beta.2) (2024-10-09)
+
+
+### 🛠️ Chores
+
+* trigger ([07aa498](https://github.com/AndreyZlobin/vegajs/commit/07aa4986a045d2d85f37d30ab6b7e4b5ea5b5296))
+
 ## 1.0.0-beta.1 (2024-10-09)
 
 
