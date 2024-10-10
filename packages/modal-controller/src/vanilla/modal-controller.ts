@@ -1,4 +1,4 @@
-import { EventEmitter } from '../event-emitter';
+import { EventEmitter } from '@vegajs/shared';
 import type { ModalUnit, ResolveObject, ServiceModalUnit } from '../types';
 import { createConfirmId, isConfirmModalUnit, isModalUnit } from '../utils';
 

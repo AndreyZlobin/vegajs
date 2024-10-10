@@ -1,27 +1,29 @@
 {
-  "name": "@vegajs/modal-controller",
+  "name": "@vegajs/config",
   "author": "Andrey Zlobin",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/AndreyZlobin/vegajs/issues"
   },
-  "description": "A flexible modal management system for React applications, featuring ModalContainer, ModalProvider, and ModalController components for advanced and intuitive modal workflows.",
-  "homepage": "https://github.com/AndreyZlobin/vegajs/packages/modal-controller",
+  "description": "A flexible and easy-to-use configuration management service for TypeScript/JavaScript applications, allowing initialization, setting, and retrieval of configuration parameters.",
+  "homepage": "https://github.com/AndreyZlobin/vegajs/packages/config",
   "repository": {
     "type": "git",
     "url": "https://github.com/AndreyZlobin/vegajs"
   },
   "keywords": [
-    "react",
-    "modal",
-    "modal-controller",
-    "modal-provider",
-    "modal-container",
-    "modal-management",
-    "typescript",
-    "ui",
     "frontend",
-    "component-library"
+    "react",
+    "vue",
+    "svelte",
+    "zero-deps",
+    "type-safe",
+    "config",
+    "ts-config",
+    "app-config",
+    "config-service",
+    "ui",
+    "frontend"
   ],
   "version": "0.0.1",
   "types": "./dist/types/index.d.ts",
@@ -38,8 +40,5 @@
     "eslint": "eslint --cache --ext .js,.jsx,.ts,.tsx . --config .eslintrc",
     "lint": "npm run eslint && npm run typecheck",
     "lint:fix": "eslint --cache --ext .js,.jsx,.ts,.tsx  . --fix --config .eslintrc --quiet"
-  },
-  "dependencies": {
-    "@vegajs/shared": "*"
   }
 }
