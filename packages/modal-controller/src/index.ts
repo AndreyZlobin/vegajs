@@ -5,6 +5,6 @@ export type {
   WithModalProps,
 } from './types';
 
-export { ModalController } from './vanilla';
+export { ModalController } from './core';
 
 export { ModalProvider, ModalContainer, useModal } from './react';

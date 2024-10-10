@@ -1,8 +1,8 @@
 import { createElement, memo, useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
+import type { ModalController } from '../core';
 import type { ModalUnit } from '../types';
-import type { ModalController } from '../vanilla';
 
 interface ModalContainerProps {
   controller: ModalController;

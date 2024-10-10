@@ -1,6 +1,6 @@
 import type { PropsWithChildren, ReactNode } from 'react';
 import { useRef } from 'react';
-import { ModalController } from '../vanilla';
+import { ModalController } from '../core';
 import { ModalContext } from './context';
 import { ModalContainer } from './modal-container';
 
