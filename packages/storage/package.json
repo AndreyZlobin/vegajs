@@ -1,12 +1,12 @@
 {
-  "name": "@vegajs/http-client-adapter",
+  "name": "@vegajs/storage",
   "author": "Andrey Zlobin",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/AndreyZlobin/vegajs/issues"
   },
-  "description": "A flexible, type-safe HTTP client adapter for TypeScript and JavaScript. Supports custom adapters and includes an out-of-the-box Axios adapter for easy HTTP request handling.",
-  "homepage": "https://github.com/AndreyZlobin/vegajs/packages/http-client-adapter",
+  "description": "A flexible and type-safe storage service adapter for TypeScript and JavaScript. Supports various storage mechanisms like localStorage, query strings, and mock storage with both asynchronous and synchronous APIs.",
+  "homepage": "https://github.com/AndreyZlobin/vegajs/packages/storage",
   "repository": {
     "type": "git",
     "url": "https://github.com/AndreyZlobin/vegajs"
@@ -16,17 +16,15 @@
     "react",
     "vue",
     "svelte",
-    "type-safe",
-    "axios",
-    "fetch",
-    "ky",
+    "storage-service",
+    "localStorage",
+    "query-string",
+    "mock-storage",
     "adapter-pattern",
-    "http-agent",
-    "http-requests",
-    "superagent",
-    "http-client",
-    "http-adapter",
-    "http-service"
+    "typescript",
+    "storage",
+    "zero-deps",
+    "type-safe"
   ],
   "version": "0.0.1",
   "types": "./dist/types/index.d.ts",
@@ -43,8 +41,5 @@
     "eslint": "eslint --cache --ext .js,.jsx,.ts,.tsx . --config .eslintrc",
     "lint": "npm run eslint && npm run typecheck",
     "lint:fix": "eslint --cache --ext .js,.jsx,.ts,.tsx  . --fix --config .eslintrc --quiet"
-  },
-  "dependencies": {
-    "axios": "^1.7.7"
   }
 }
