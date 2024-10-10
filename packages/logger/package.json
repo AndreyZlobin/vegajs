@@ -1,0 +1,46 @@
+{
+  "name": "@vegajs/logger",
+  "author": "Andrey Zlobin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AndreyZlobin/vegajs/issues"
+  },
+  "description": "A powerful, flexible, and customizable logging utility for TypeScript and JavaScript applications. Supports multiple log levels, context-aware logging, JSON and text output formats, and external log transmission.",
+  "homepage": "https://github.com/AndreyZlobin/vegajs/packages/logger",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AndreyZlobin/vegajs"
+  },
+  "keywords": [
+    "frontend",
+    "react",
+    "vue",
+    "svelte",
+    "zero-deps",
+    "type-safe",
+    "logger",
+    "typescript",
+    "logging",
+    "log-level",
+    "json-logs",
+    "context-logging",
+    "custom-logs",
+    "external-log-transmission"
+  ],
+  "version": "0.0.1",
+  "types": "./dist/types/index.d.ts",
+  "main": "./dist/lib/index.js",
+  "module": "./dist/es/index.js",
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "modern build",
+    "build:watch": "modern build -w",
+    "ci-publish": "npm publish --access public",
+    "tests": "vitest run",
+    "tests:ci": "vitest run --reporter=junit --outputFile.junit=junit.xml",
+    "typecheck": "tsc --noEmit",
+    "eslint": "eslint --cache --ext .js,.jsx,.ts,.tsx . --config .eslintrc",
+    "lint": "npm run eslint && npm run typecheck",
+    "lint:fix": "eslint --cache --ext .js,.jsx,.ts,.tsx  . --fix --config .eslintrc --quiet"
+  }
+}
