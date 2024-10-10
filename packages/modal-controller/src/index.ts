@@ -1,5 +1,3 @@
-import { ModalContainer, ModalController } from './vanilla';
-
 export type {
   ModalProps,
   ModalComponent,
@@ -7,4 +5,6 @@ export type {
   WithModalProps,
 } from './types';
 
-export { ModalContainer, ModalController };
+export { ModalController } from './vanilla';
+
+export { ModalProvider, ModalContainer, useModal } from './react';
