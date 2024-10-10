@@ -1,5 +1,5 @@
+import { isJsonString } from '@vegajs/shared';
 import type { StorageService } from '../../types';
-import { isJsonString } from '../utils';
 
 const notSupportedError = new Error('localStorage is not supported');
 

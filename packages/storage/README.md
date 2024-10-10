@@ -116,7 +116,7 @@ You can easily create your own adapter by implementing the `StorageService` inte
 import { StorageService } from '@vegajs/storage';
 
 class CustomStorageAdapter implements StorageService {
-  private data = new Map<string, any>();
+  private data = new Map<string, unknown>();
 
   async getItem<Value>(key: string): Promise<Value | null> {
     return this.data.get(key) || null;
@@ -250,5 +250,3 @@ export class MockStorageService implements StorageService {
 ## Conclusion
 
 `@vegajs/storage` is a powerful and flexible library that simplifies working with storage in your applications. The library provides strong typing and offers multiple ready-to-use storage adapters. Whether you need to work with `localStorage`, query strings, or mock storage for testing, this library has you covered.
-
-Install the package today and streamline your storage handling!

@@ -41,5 +41,8 @@
     "eslint": "eslint --cache --ext .js,.jsx,.ts,.tsx . --config .eslintrc",
     "lint": "npm run eslint && npm run typecheck",
     "lint:fix": "eslint --cache --ext .js,.jsx,.ts,.tsx  . --fix --config .eslintrc --quiet"
+  },
+  "dependencies": {
+    "@vegajs/shared": "*"
   }
 }
