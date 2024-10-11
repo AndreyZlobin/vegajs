@@ -43,16 +43,12 @@ export class AxiosAdapter implements HttpClient {
   ): Promise<Data> {
     const { searchParams, ...rest } = params || {};
 
-    try {
-      const response = await this.instance.get<Data>(point, {
-        params: searchParams,
-        ...rest,
-      });
+    const response = await this.instance.get<Data>(point, {
+      params: searchParams,
+      ...rest,
+    });
 
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    return response.data;
   }
 
   public async post<Data = unknown, Body = unknown, Params = SearchParams>(
@@ -62,16 +58,12 @@ export class AxiosAdapter implements HttpClient {
   ): Promise<Data> {
     const { searchParams, ...rest } = params || {};
 
-    try {
-      const response = await this.instance.post<Data>(point, body, {
-        params: searchParams,
-        ...rest,
-      });
+    const response = await this.instance.post<Data>(point, body, {
+      params: searchParams,
+      ...rest,
+    });
 
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    return response.data;
   }
 
   public async put<Data = unknown, Body = unknown, Params = SearchParams>(
@@ -81,16 +73,12 @@ export class AxiosAdapter implements HttpClient {
   ): Promise<Data> {
     const { searchParams, ...rest } = params || {};
 
-    try {
-      const response = await this.instance.put<Data>(point, body, {
-        params: searchParams,
-        ...rest,
-      });
+    const response = await this.instance.put<Data>(point, body, {
+      params: searchParams,
+      ...rest,
+    });
 
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    return response.data;
   }
 
   public async patch<Data = unknown, Body = unknown, Params = SearchParams>(
@@ -100,16 +88,12 @@ export class AxiosAdapter implements HttpClient {
   ): Promise<Data> {
     const { searchParams, ...rest } = params || {};
 
-    try {
-      const response = await this.instance.patch<Data>(point, body, {
-        params: searchParams,
-        ...rest,
-      });
+    const response = await this.instance.patch<Data>(point, body, {
+      params: searchParams,
+      ...rest,
+    });
 
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    return response.data;
   }
 
   public async delete<Data = unknown, Params = SearchParams>(
@@ -118,15 +102,11 @@ export class AxiosAdapter implements HttpClient {
   ): Promise<Data> {
     const { searchParams, ...rest } = params || {};
 
-    try {
-      const response = await this.instance.delete<Data>(point, {
-        params: searchParams,
-        ...rest,
-      });
+    const response = await this.instance.delete<Data>(point, {
+      params: searchParams,
+      ...rest,
+    });
 
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    return response.data;
   }
 }

@@ -7,23 +7,23 @@ export class StorageService implements IStorageService {
     this.#adapter = adapter;
   }
 
-  getItem<Value = unknown>(key: string): Promise<Value | null> {
-    return this.#adapter.getItem(key);
+  getItem<Value = unknown>(key: string) {
+    return this.#adapter.getItem<Value>(key);
   }
 
-  getItemSync<Value = unknown>(key: string): Value | null {
-    return this.#adapter.getItemSync(key);
+  getItemSync<Value = unknown>(key: string) {
+    return this.#adapter.getItemSync<Value>(key);
   }
 
-  setItem<Value = unknown>(key: string, value: Value): Promise<void> {
+  setItem<Value = unknown>(key: string, value: Value) {
     return this.#adapter.setItem(key, value);
   }
 
-  setItemSync<Value = unknown>(key: string, value: Value): void {
+  setItemSync<Value = unknown>(key: string, value: Value) {
     return this.#adapter.setItemSync(key, value);
   }
 
-  clearItem(key: string): void {
+  clearItem(key: string) {
     return this.#adapter.clearItem(key);
   }
 

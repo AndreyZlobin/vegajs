@@ -43,9 +43,9 @@ export const ModalContainer = memo(
     const modalContent = (
       <>
         {BackdropComponent && (
-          <BackdropComponent
-            children={createElement(currentModal.component, props)}
-          />
+          <BackdropComponent>
+            {createElement(currentModal.component, props)}
+          </BackdropComponent>
         )}
         {!BackdropComponent && createElement(currentModal.component, props)}
       </>

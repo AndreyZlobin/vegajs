@@ -10,8 +10,11 @@
     "lint:all": "eslint \"**/*.{ts,tsx}\" --fix --quiet"
   },
   "dependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
-    "@testing-library/user-event": "^14.4.3",
-    "@testing-library/jest-dom": "^5.17.0"
+    "@testing-library/user-event": "^14.4.3"
+  },
+  "devDependencies": {
+    "resize-observer-polyfill": "^1.5.1"
   }
 }

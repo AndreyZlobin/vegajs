@@ -1,19 +1,25 @@
 /// <reference types="vitest" />
-
-import path from 'path';
+import { resolve } from 'node:path';
 
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vitest/config';
 
-export const createVitestConfig = ({ useJsDOM }: { useJsDOM: boolean }) =>
-  defineConfig({
+type Options = { useJsDOM: boolean };
+
+export const createVitestConfig = (options?: Options) => {
+  const { useJsDOM } = options || {};
+
+  return defineConfig({
     plugins: [react()],
     test: {
       globals: true,
       environment: useJsDOM ? 'jsdom' : 'node',
       setupFiles: useJsDOM
-        ? path.resolve(__dirname, 'tests', 'vitest.setup.js')
+        ? resolve(__dirname, 'tests', 'vitest.setup.js')
         : undefined,
       testTimeout: 3000,
     },
   });
+};
+
+export default createVitestConfig();
