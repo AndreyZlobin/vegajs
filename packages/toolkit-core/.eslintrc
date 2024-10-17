@@ -1,0 +1,14 @@
+{
+  "root": true,
+  "extends": "@self-kit/eslint-config-react-ts",
+  "rules": {
+    "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports"
+      }
+    ]
+  },
+  "ignorePatterns": ["dist"]
+}

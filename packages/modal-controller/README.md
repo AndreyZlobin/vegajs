@@ -1,4 +1,6 @@
-## Table of Contents
+# @vegajs/modal-controller
+
+[![npm version](https://badge.fury.io/js/%40vegajs%2Fmodal-controller.svg)](https://badge.fury.io/js/%40vegajs%2Fmodal-controller)
 
 - [Introduction](#introduction)
 - [ModalContainer](#modalcontainer)
@@ -15,6 +17,14 @@
 # Introduction
 
 This documentation is intended to provide a comprehensive guide to the `ModalContainer`, `ModalProvider`, and `ModalController` components. These components form a system for managing modal windows in your application, offering a flexible, extensible, and intuitive API for both simple and advanced modal workflows.
+
+## Installation
+
+Install the package via npm:
+
+```bash
+npm install @vegajs/storage
+```
 
 # ModalContainer
 

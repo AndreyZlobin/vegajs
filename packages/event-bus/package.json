@@ -1,0 +1,45 @@
+{
+  "name": "@vegajs/event-bus",
+  "version": "0.0.0",
+  "description": "A flexible and typed Event Bus implementation for TypeScript and JavaScript projects. It facilitates communication between components and modules without tight coupling.",
+  "keywords": [
+    "EventBus",
+    "TypeScript",
+    "events",
+    "pub-sub",
+    "publish-subscribe",
+    "event-driven",
+    "frontend",
+    "communication",
+    "typed events"
+  ],
+  "homepage": "https://github.com/AndreyZlobin/vegajs/packages/event-bus",
+  "bugs": {
+    "url": "https://github.com/AndreyZlobin/vegajs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AndreyZlobin/vegajs"
+  },
+  "license": "MIT",
+  "author": "Andrey Zlobin",
+  "main": "./dist/lib/index.js",
+  "module": "./dist/es/index.js",
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "modern build",
+    "build:watch": "modern build -w",
+    "ci-publish": "npm publish --access public",
+    "eslint": "eslint --cache --ext .js,.jsx,.ts,.tsx . --config .eslintrc",
+    "lint": "npm run eslint && npm run typecheck",
+    "lint:fix": "eslint --cache --ext .js,.jsx,.ts,.tsx  . --fix --config .eslintrc --quiet",
+    "tests": "vitest run",
+    "tests:watch": "vitest",
+    "tests:ci": "vitest run --reporter=junit --outputFile.junit=junit.xml",
+    "typecheck": "tsc --noEmit"
+  }
+}

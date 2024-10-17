@@ -25,7 +25,18 @@
     "ignoreUnknown": true
   },
   "formatter": {
-    "enabled": false
+    "enabled": true
+  },
+  "javascript": {
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "tab",
+      "indentWidth": 2,
+      "lineEnding": "lf",
+      "lineWidth": 80,
+      "bracketSpacing": true,
+      "quoteStyle": "single"
+    }
   },
   "css": {
     "parser": {

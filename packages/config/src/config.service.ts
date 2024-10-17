@@ -1,30 +1,35 @@
+function assert<T>(
+  value: T | undefined | null,
+  message = 'Assertion failed: value is not defined',
+): asserts value is T {
+  if (value === null || value === undefined) {
+    throw new Error(message);
+  }
+}
+
 export class ConfigService<Config extends Record<string, unknown>> {
-  private _config: Config | undefined;
+  #config: Config | undefined;
 
   constructor(private readonly defaultConfig?: Config) {
-    this._config = this.defaultConfig;
+    this.#config = this.defaultConfig;
   }
 
   public init(config: Config) {
     this.config = config;
   }
 
-  public get config(): Config {
-    if (!this._config) {
-      throw Error('ConfigService is not initialized');
-    }
+  public get config() {
+    assert(this.#config, 'ConfigService is not initialized');
 
-    return this._config;
+    return this.#config;
   }
 
   public set config(config: Config) {
-    this._config = config;
+    this.#config = config;
   }
 
   public get<K extends keyof Config>(key: K): Config[K] {
-    if (!this._config) {
-      throw Error('ConfigService is not initialized');
-    }
+    assert(this.#config, 'ConfigService is not initialized');
 
     return this.config[key];
   }

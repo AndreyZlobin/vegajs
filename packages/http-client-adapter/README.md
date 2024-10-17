@@ -1,4 +1,3 @@
-
 # @vegajs/http-client-adapter
 
 [![npm version](https://badge.fury.io/js/%40vegajs%2Fhttp-client-adapter.svg)](https://badge.fury.io/js/%40vegajs%2Fhttp-client-adapter)

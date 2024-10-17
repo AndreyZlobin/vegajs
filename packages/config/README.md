@@ -1,4 +1,4 @@
-# ConfigService
+# @vegajs/config
 
 ## Description
 

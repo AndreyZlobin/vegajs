@@ -40,6 +40,7 @@
     "lint": "npm run eslint && npm run typecheck",
     "lint:fix": "eslint --cache --ext .js,.jsx,.ts,.tsx  . --fix --config .eslintrc --quiet",
     "tests": "vitest run",
+    "tests:watch": "vitest",
     "tests:ci": "vitest run --reporter=junit --outputFile.junit=junit.xml",
     "typecheck": "tsc --noEmit"
   }
