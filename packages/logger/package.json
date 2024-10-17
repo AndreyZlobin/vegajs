@@ -1,50 +1,47 @@
 {
-  "name": "@vegajs/logger",
-  "version": "0.0.1",
-  "description": "A powerful, flexible, and customizable logging utility for TypeScript and JavaScript applications. Supports multiple log levels, context-aware logging, JSON and text output formats, and external log transmission.",
-  "keywords": [
-    "frontend",
-    "react",
-    "vue",
-    "svelte",
-    "zero-deps",
-    "type-safe",
-    "logger",
-    "typescript",
-    "logging",
-    "log-level",
-    "json-logs",
-    "context-logging",
-    "custom-logs",
-    "external-log-transmission"
-  ],
-  "homepage": "https://github.com/AndreyZlobin/vegajs/packages/logger",
-  "bugs": {
-    "url": "https://github.com/AndreyZlobin/vegajs/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/AndreyZlobin/vegajs"
-  },
-  "license": "MIT",
-  "author": "Andrey Zlobin",
-  "main": "./dist/lib/index.js",
-  "module": "./dist/es/index.js",
-  "types": "./dist/types/index.d.ts",
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "scripts": {
-    "build": "modern build",
-    "build:watch": "modern build -w",
-    "ci-publish": "npm publish --access public",
-    "eslint": "eslint --cache --ext .js,.jsx,.ts,.tsx . --config .eslintrc",
-    "lint": "npm run eslint && npm run typecheck",
-    "lint:fix": "eslint --cache --ext .js,.jsx,.ts,.tsx  . --fix --config .eslintrc --quiet",
-    "tests": "vitest run",
-    "tests:watch": "vitest",
-    "tests:ci": "vitest run --reporter=junit --outputFile.junit=junit.xml",
-    "typecheck": "tsc --noEmit"
-  }
+	"name": "@vegajs/logger",
+	"version": "0.0.1",
+	"description": "A powerful, flexible, and customizable logging utility for TypeScript and JavaScript applications. Supports multiple log levels, context-aware logging, JSON and text output formats, and external log transmission.",
+	"keywords": [
+		"frontend",
+		"react",
+		"vue",
+		"svelte",
+		"zero-deps",
+		"type-safe",
+		"logger",
+		"typescript",
+		"logging",
+		"log-level",
+		"json-logs",
+		"context-logging",
+		"custom-logs",
+		"external-log-transmission"
+	],
+	"homepage": "https://github.com/AndreyZlobin/vegajs/packages/logger",
+	"bugs": {
+		"url": "https://github.com/AndreyZlobin/vegajs/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/AndreyZlobin/vegajs"
+	},
+	"license": "MIT",
+	"author": "Andrey Zlobin",
+	"main": "./dist/lib/index.js",
+	"module": "./dist/es/index.js",
+	"types": "./dist/types/index.d.ts",
+	"files": ["dist", "README.md"],
+	"scripts": {
+		"build": "modern build",
+		"build:watch": "modern build -w",
+		"ci-publish": "npm publish --access public",
+		"eslint": "eslint --cache --ext .js,.jsx,.ts,.tsx . --config .eslintrc",
+		"lint": "npm run eslint && npm run typecheck",
+		"lint:fix": "eslint --cache --ext .js,.jsx,.ts,.tsx  . --fix --config .eslintrc --quiet",
+		"tests": "vitest run",
+		"tests:ci": "vitest run --reporter=junit --outputFile.junit=junit.xml",
+		"tests:watch": "vitest",
+		"typecheck": "tsc --noEmit"
+	}
 }

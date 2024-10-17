@@ -1,23 +1,19 @@
 {
 	"private": true,
-	"workspaces": [
-		"packages/*",
-		"shared",
-		"tests"
-	],
+	"workspaces": ["packages/*", "shared", "tests"],
 	"scripts": {
 		"build": "npm run build --workspaces --if-present",
 		"build-storybook": "storybook build",
 		"ci-publish": "npm run ci-publish --workspaces --if-present",
 		"lint": "npm run lint --workspaces --if-present",
-		"lint:biome": "biome check . --diagnostic-level=warn",
-		"lint:biome-w": "biome check . --diagnostic-level=error",
+		"biome": "biome check . --diagnostic-level=warn",
+		"biome:fix": "biome check --write . --diagnostic-level=error",
 		"lint:fix": "npm run lint:fix --workspaces --if-present",
 		"prepare": "npx husky install",
 		"sort-package-json": "npx sort-package-json \"./package.json\" \"packages/*/package.json\"",
 		"storybook": "storybook dev -p 6006",
 		"tests": "npm run tests --workspaces --if-present",
-    "tests:watch": "npx vitest",
+		"tests:watch": "npx vitest",
 		"typecheck": "npm run typecheck --workspaces --if-present"
 	},
 	"devDependencies": {

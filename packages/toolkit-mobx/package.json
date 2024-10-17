@@ -1,38 +1,35 @@
 {
-  "name": "@vegajs/mobx-toolkit",
-  "version": "0.0.1",
-  "homepage": "https://github.com/AndreyZlobin/vegajs/packages/mobx-toolkit",
-  "bugs": {
-    "url": "https://github.com/AndreyZlobin/vegajs/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/AndreyZlobin/vegajs"
-  },
-  "license": "MIT",
-  "author": "Andrey Zlobin",
-  "main": "./dist/lib/index.js",
-  "module": "./dist/es/index.js",
-  "types": "./dist/types/index.d.ts",
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "scripts": {
-    "build": "modern build",
-    "build:watch": "modern build -w",
-    "ci-publish": "npm publish --access public",
-    "eslint": "eslint --cache --ext .js,.jsx,.ts,.tsx . --config .eslintrc",
-    "lint": "npm run eslint && npm run typecheck",
-    "lint:fix": "eslint --cache --ext .js,.jsx,.ts,.tsx  . --fix --config .eslintrc --quiet",
-    "tests": "vitest run",
-    "tests:watch": "vitest",
-    "tests:ci": "vitest run --reporter=junit --outputFile.junit=junit.xml",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@vegajs/toolkit-core": "*",
-    "@vegajs/event-bus": "*",
-    "mobx": "^6.9.0"
-  }
+	"name": "@vegajs/mobx-toolkit",
+	"version": "0.0.1",
+	"homepage": "https://github.com/AndreyZlobin/vegajs/packages/mobx-toolkit",
+	"bugs": {
+		"url": "https://github.com/AndreyZlobin/vegajs/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/AndreyZlobin/vegajs"
+	},
+	"license": "MIT",
+	"author": "Andrey Zlobin",
+	"main": "./dist/lib/index.js",
+	"module": "./dist/es/index.js",
+	"types": "./dist/types/index.d.ts",
+	"files": ["dist", "README.md"],
+	"scripts": {
+		"build": "modern build",
+		"build:watch": "modern build -w",
+		"ci-publish": "npm publish --access public",
+		"eslint": "eslint --cache --ext .js,.jsx,.ts,.tsx . --config .eslintrc",
+		"lint": "npm run eslint && npm run typecheck",
+		"lint:fix": "eslint --cache --ext .js,.jsx,.ts,.tsx  . --fix --config .eslintrc --quiet",
+		"tests": "vitest run",
+		"tests:ci": "vitest run --reporter=junit --outputFile.junit=junit.xml",
+		"tests:watch": "vitest",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@vegajs/event-bus": "*",
+		"@vegajs/toolkit-core": "*",
+		"mobx": "^6.9.0"
+	}
 }
