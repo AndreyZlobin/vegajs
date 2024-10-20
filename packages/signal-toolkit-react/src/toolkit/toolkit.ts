@@ -1,4 +1,3 @@
-import type { signal } from '@preact/signals-react';
 import { EventBus } from '@vegajs/event-bus';
 import type {
   EventsData,
@@ -8,11 +7,38 @@ import type {
 import { Mutation } from '../mutation';
 import { Query } from '../query';
 
+class WrappedQuery<TData = unknown, TError = unknown, TOptions = void> {
+  constructor(
+    private readonly options: QueryOptions<TData, TError, TOptions>,
+  ) {}
+
+  get instance() {
+    const eventBus = new EventBus<EventsData<TData, TError>>();
+
+    return new Query<TData, TError, TOptions>({
+      ...this.options,
+      eventBus,
+    }) as Query;
+  }
+}
+
+class WrappedMutation<TData = unknown, TError = unknown, TOptions = void> {
+  constructor(
+    private readonly options: MutationOptions<TData, TError, TOptions>,
+  ) {}
+
+  get instance() {
+    const eventBus = new EventBus<EventsData<TData, TError>>();
+
+    return new Mutation<TData, TError, TOptions>({
+      ...this.options,
+      eventBus,
+    });
+  }
+}
+
 class Toolkit {
-  private queries = new Map<
-    string,
-    { instance: Query; eventBus: EventBus<EventsData> }
-  >();
+  private queries = new Map<string, Query>();
 
   public createQuery = <TData = unknown, TError = unknown, TOptions = void>(
     options: QueryOptions<TData, TError, TOptions> & { key: string },
@@ -23,19 +49,15 @@ class Toolkit {
       const cachedQuery = this.queries.get(key);
 
       if (cachedQuery) {
-        return cachedQuery.instance as Query<TData, TError, TOptions>;
+        return cachedQuery as Query<TData, TError, TOptions>;
       }
     }
 
-    const eventBus = new EventBus<EventsData<TData, TError>>();
-
-    const newQuery = new Query<TData, TError, TOptions>({
-      ...restOptions,
-      eventBus,
-    }) as Query;
+    const newQuery = new WrappedQuery<TData, TError, TOptions>(restOptions)
+      .instance as Query;
 
     if (key) {
-      this.queries.set(key, { instance: newQuery, eventBus });
+      this.queries.set(key, newQuery);
     }
 
     return newQuery;
@@ -44,42 +66,39 @@ class Toolkit {
   public createMutation<TData = unknown, TError = unknown, TOptions = unknown>(
     options: MutationOptions<TData, TError, TOptions>,
   ): Mutation<TData, TError, TOptions> {
-    return new Mutation<TData, TError, TOptions>({
+    return new WrappedMutation<TData, TError, TOptions>({
       ...options,
-      eventBus: new EventBus<EventsData<TData, TError>>(),
-    });
+    }).instance;
   }
 
   public invalidate = (key: string) => {
     const query = this.queries.get(key);
 
     if (query) {
-      query.instance.refetch();
+      query.refetch();
     }
   };
 
   public getQueryData = <TData = unknown>(key: string) => {
-    const query = this.queries.get(key);
+    const query = this.queries.get(key) as Query<TData>;
 
-    return query?.instance?.data as
-      | ReturnType<typeof signal<TData>>
-      | undefined;
+    return query?.data;
   };
 
   /**
    * Method for invalidate all queries
    */
   public invalidateQueries = () => {
-    this.queries.forEach((q) => q.instance.refetch());
+    this.queries.forEach((q) => q.refetch());
   };
 
   public resetQueries = () => {
-    this.queries.forEach((q) => q.instance.reset());
+    this.queries.forEach((q) => q.reset());
     this.queries.clear();
   };
 
   public resetQuery = (key: string) => {
-    this.queries.get(key)?.instance.reset();
+    this.queries.get(key)?.reset();
     this.queries.delete(key);
   };
 }

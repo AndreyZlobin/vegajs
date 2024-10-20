@@ -6,6 +6,8 @@
 		"tests"
 	],
 	"scripts": {
+    "change": "changeset",
+    "changeset": "changeset",
     "prebuild": "npm run build --w=@vegajs/event-bus && npm run build --w=@vegajs/toolkit-core",
 		"build": "npm run build --workspaces --if-present",
 		"build-storybook": "storybook build",
@@ -26,6 +28,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.3",
+    "@changesets/cli": "^2.27.9",
 		"@commitlint/config-conventional": "^19.5.0",
 		"@modern-js/module-tools": "2.60.1",
 		"@modern-js/runtime": "2.60.1",

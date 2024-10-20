@@ -75,3 +75,24 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Delete release on failure
+        if: failure()
+        run: |
+          tag=$(git describe --tags --abbrev=0)
+          release_id=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/${{ github.repository }}/releases/tags/$tag | jq -r '.id')
+          
+          # To remove release
+          curl -X DELETE -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/${{ github.repository }}/releases/$release_id
+          
+          # To remove tag
+          git push --delete origin $tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Cleanup tag on failure
+        if: failure()
+        run: |
+          tag=$(git describe --tags --abbrev=0)
+          git tag -d $tag
