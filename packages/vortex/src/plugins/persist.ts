@@ -58,7 +58,7 @@ export const persistPlugin =
             });
           });
         } catch (error) {
-          console.error('Error parsing saved state:', error);
+          console.error('Error parsing state:', error);
           localStorage.removeItem(key);
         }
       } else {
