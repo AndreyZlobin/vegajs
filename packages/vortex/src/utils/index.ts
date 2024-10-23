@@ -2,7 +2,7 @@ import type { Computed, Reactive } from '../types';
 
 export * from './reactive-context';
 
-export * from './is';
+export * from './is-equal';
 
 export const toObjectKeys = <Obj extends Record<string, unknown>>(
   obj: Obj,

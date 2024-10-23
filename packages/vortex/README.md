@@ -1,134 +1,164 @@
-# @vegajs/event-bus
+<p align="center">
+  <img src="docs/vortex-logo.jpg" alt="Vortex Logo" /> 
+</p>
 
-A flexible and typed Event Bus implementation for TypeScript projects. This library provides a simple interface to manage events and listeners, allowing communication between different parts of your application without tight coupling.
+[![Build Size](https://img.shields.io/bundlephobia/minzip/@vegajs/vortex?label=bundle%20size&style=flat&colorB=49ff43)](https://bundlephobia.com/result?p=vortex)
+[![Version](https://img.shields.io/npm/v/@vegajs/vortex?style=flat&colorB=ffd547)](https://www.npmjs.com/package/@vegajs/vortex)
+[![Downloads](https://img.shields.io/npm/dt/@vegajs/vortex.svg)](https://www.npmjs.com/package/@vegajs/vortex)
+ 
+# Vortex
+
+**Vortex** is a powerful, flexible, and typed state management solution for TypeScript and JavaScript projects. It provides a reactive, event-driven architecture with support for dependency injection, computed properties, plugins, and a strong focus on type safety.
+
+- **Type-safe**: No `any` types, ensuring you have full control over your state and actions with TypeScript.
+- **Minimal re-renders**: Components only re-render when necessary, improving performance.
+- **Framework-agnostic**: Works seamlessly with React, Vue, or any other framework.
+- **Extensible**: Supports plugins and middleware for additional functionality.
+- **Flexible and Scalable**: Can be used in small projects or large enterprise applications.
 
 ## Installation
 
-Install the package via npm:
-
 ```bash
-npm install @vegajs/event-bus
+npm i @vegajs/vortex
 ```
 
-## Usage
+## Creating a Store
 
-### Basic Setup
-
-You can define your own event types and data structure, and use the `EventBus` to emit and listen to events. Here's an example:
+Your store in Vortex is fully typed and supports computed properties, reactive state, and effects.
 
 ```typescript
-import { EventBus } from 'your-event-bus-package';
+import { defineStore } from '@vegajs/vortex';
 
-// Define the events for your application
-type MyAppEvents = {
-    'app:start': void;
-    'user:login': { username: string };
-    'data:update': { newData: any };
+export const counterStore = defineStore(({ reactive, computed, effect }) => {
+  const count = reactive(0);
+  const doubleCount = computed(() => count.get() * 2);
+
+  effect(() => {
+    console.log(`Count is: ${count.get()}`);
+  });
+
+  const increment = () => {
+    count.set((prev) => prev + 1);
+  };
+
+  return { count, doubleCount, increment };
+});
+```
+
+## Using the Store in Components
+
+You can use the store anywhere in your app. Since Vortex is framework-agnostic, you are not required to wrap your app in context providers. Here's how it works in React, but the pattern is similar for other frameworks.
+
+```jsx
+import { useStore } from '@vegajs/vortex';
+import { counterStore } from './stores/counter';
+
+function Counter() {
+  const { count, increment } = useStore(counterStore);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment</button>
+    </div>
+  );
+}
+```
+
+## Dependency Injection (DI)
+
+Vortex supports Dependency Injection (DI) out of the box, allowing you to easily manage external dependencies like API services or logging utilities.
+
+```typescript
+import { defineStore, DIContainer } from '@vegajs/vortex';
+
+export const createAppStore = () => {
+  // Define your DI container
+  const container = new DIContainer<{ logeer: Console }>();
+
+  container.register('logger', console);
+  
+  return defineStore(
+    ({ reactive, DI }) => {
+      const count = reactive(0);
+      const logger = DI.get('logger'); // Type Safety
+
+      const increment = () => {
+        count.set((prev) => prev + 1);
+        logger.log('Count incremented');
+      };
+
+      return { count, increment };
+    },
+    { DI: container }
+  );
 };
 
-// Create an instance of EventBus
-const eventBus = new EventBus<MyAppEvents>();
-
-// Subscribing to an event
-eventBus.on('user:login', (event) => {
-    console.log(`User logged in: ${event.username}`);
-});
-
-// Emitting an event
-eventBus.emit('user:login', { username: 'john_doe' });
-
-// Unsubscribing from an event
-const handler = (event: { username: string }) => console.log(`User logged in: ${event.username}`);
-eventBus.on('user:login', handler);
-eventBus.off('user:login', handler);
+export const appStore = createAppStore()
 ```
 
-### Example of Multiple Event Types
+## Plugins and Extensibility
 
-You can also work with multiple types of events in a type-safe way.
+Vortex allows you to extend its functionality with plugins, like persistence.
 
 ```typescript
-// Define a new set of events
-type OtherEvents = {
-    'error': { message: string };
-    'notification': { text: string };
-};
+import { defineStore, persistPlugin } from '@vegajs/vortex';
 
-const anotherBus = new EventBus<OtherEvents>();
+export const counterStore = defineStore(({ reactive }) => {
+    const count = reactive(0);
 
-// Subscribing to different events
-anotherBus.on('error', (event) => {
-    console.error(`Error occurred: ${event.message}`);
-});
+    const increment = () => {
+      count.set((prev) => prev + 1);
+    };
 
-anotherBus.on('notification', (event) => {
-    console.log(`Notification: ${event.text}`);
-});
-
-// Emitting events
-anotherBus.emit('error', { message: 'Something went wrong!' });
-anotherBus.emit('notification', { text: 'New message received' });
+    return { count, increment };
+  },
+  { plugins: [persistPlugin('counterStore')] }
+);
 ```
 
-### Asynchronous Events
+## Why Choose Vortex?
 
-The `EventBus` also supports asynchronous event handlers if necessary:
+- **Type Safety**: Every state and action is fully typed, making it easy to catch mistakes during development.
+- **Reactive**: Vortex provides a reactive state management system, automatically tracking dependencies and updating your app when the state changes.
+- **Minimal Re-renders**: Only the components that depend on the changed state will re-render, avoiding unnecessary updates.
+- **Framework-agnostic**: Vortex can be used in any front-end framework or even in Node.js environments.
+- **Extensible**: With support for plugins, Vortex is easy to extend with additional features like persistence or logging.
 
-```typescript
-const asyncBus = new EventBus<MyAppEvents>();
+## Comparison with Other Libraries
 
-asyncBus.on('app:start', async () => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log('App started after 1 second');
-});
+- **Vortex vs Redux**: Vortex requires less boilerplate and offers a more streamlined, type-safe experience.
+- **Vortex vs Context API**: Vortex avoids the issues of over-rendering that can occur with the Context API by providing more granular control over state changes.
 
-asyncBus.emit('app:start', undefined);
-```
+## API Reference
 
-### Handling Events with `void` Type
+### `defineStore(setup, options?)`
 
-If you have events that do not carry any data (i.e., `void` events), you can emit them without providing an argument:
+Creates a new store with reactive state, computed properties, and effects.
 
-```typescript
-type VoidEvents = {
-    'app:stop': void;
-};
+- `setup`: A function that receives helpers (`reactive`, `computed`, `effect`, and optionally `DI`).
+- `options`: An optional object that can include plugins and DI (dependency injection).
 
-const voidBus = new EventBus<VoidEvents>();
+### `reactive(initialValue)`
 
-voidBus.on('app:stop', () => {
-    console.log('App stopped');
-});
+Creates a reactive state that tracks changes and updates components.
 
-voidBus.emit('app:stop', undefined);
-```
+### `computed(fn)`
 
-## API
+Creates a computed property that updates when its dependencies change.
 
-### `on`
+### `effect(fn)`
 
-```typescript
-on<K extends keyof EventMap>(eventName: K, handler: (event: EventMap[K]) => void): void;
-```
+Defines a reactive effect that runs when its dependencies change.
 
-- **eventName**: The name of the event to listen for.
-- **handler**: The function to execute when the event is emitted.
+### `DIContainer`
 
-### `off`
+A container for managing dependencies, allowing you to inject external services into your store.
 
-```typescript
-off<K extends keyof EventMap>(eventName: K, handler: (event: EventMap[K]) => void): void;
-```
+## Performance
 
-- **eventName**: The name of the event to stop listening for.
-- **handler**: The function to remove from the listener list.
+Vortex is designed to minimize re-renders and optimize performance by updating only the components that depend on the changed state. This makes it suitable for both small and large-scale applications.
 
-### `emit`
+## License
 
-```typescript
-emit<K extends keyof EventMap>(eventName: K, event: EventMap[K]): void;
-```
-
-- **eventName**: The name of the event to emit.
-- **event**: The data to pass to the listeners of the event.
-
+MIT
