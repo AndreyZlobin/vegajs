@@ -6,17 +6,17 @@ import type {
   StoreOptions,
   UnwrappedState,
   WatchCallback,
-} from '../types';
+} from '../../types';
 import {
   ReactiveContext,
   isComputed,
   isEqual,
   isReactive,
   toObjectKeys,
-} from '../utils';
-import { createComputed } from './create-computed';
-import { createEffect } from './create-effect';
-import { createReactive } from './create-reactive';
+} from '../../utils';
+import { createComputed } from '../create-computed';
+import { createEffect } from '../create-effect';
+import { createReactive } from '../create-reactive';
 
 export const defineStore = <
   T extends Record<string, unknown>,
