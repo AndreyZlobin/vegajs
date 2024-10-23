@@ -1,5 +1,5 @@
-import type { Reactive } from '../types';
-import type { ReactiveContext } from '../utils';
+import type { Reactive } from '../../types';
+import type { ReactiveContext } from '../../utils';
 
 export const createReactive = <Value>(
   initialValue: Value,

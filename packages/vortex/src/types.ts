@@ -1,4 +1,4 @@
-import type { DIContainer } from './core/di-container';
+import type { DIContainer } from './core';
 
 type UnknownState = Record<string, unknown>;
 
@@ -23,6 +23,10 @@ export type UnwrappedState<T = UnknownState> = {
       ? V
       : T[K];
 };
+
+export type NonFunctionKeys<T> = {
+  [K in keyof T]: T[K] extends Function ? never : K;
+}[keyof T];
 
 export type StateWithoutActions<T extends UnknownState> = {
   [K in keyof T as T[K] extends Function ? never : K]: T[K];
