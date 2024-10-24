@@ -9,7 +9,7 @@ export default defineConfig({
     jsx: 'automatic',
     splitting: true,
     format: 'esm',
-    buildType: 'bundleless', // Указываем на отсутствие бандла
+    buildType: 'bundleless',
     input: [
       'src/**/*.ts',
       'src/**/*.tsx',
