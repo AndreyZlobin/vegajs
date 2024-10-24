@@ -8,6 +8,7 @@ export default defineConfig({
     minify: 'terser',
     jsx: 'automatic',
     splitting: true,
+    shims: true,
     format: 'esm',
     buildType: 'bundleless',
     input: [
