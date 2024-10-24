@@ -1,6 +1,6 @@
-import { useRef, useSyncExternalStore } from 'react';
+import { useCallback, useRef, useSyncExternalStore } from 'react';
 import type { DefineStore, UnwrappedState } from '../types';
-import { isEqual } from '../utils';
+import { shallowEqual } from '../utils';
 
 export const useStore = <
   T extends Record<string, unknown>,
@@ -9,16 +9,18 @@ export const useStore = <
   store: DefineStore<T>,
   selector: (store: UnwrappedState<T>) => Selected = (s) => s as Selected,
 ): Selected => {
-  const getSelectedState = () => selector(store.getSnapshot());
+  const memoizedSelector = useCallback(selector, []);
+
+  const getSelectedState = () => memoizedSelector(store.getSnapshot());
   const cachedSnapshot = useRef(getSelectedState());
 
   return useSyncExternalStore(
     (onStoreChange) => {
       return store.subscribe((newState, oldState) => {
-        const newSelected = selector(newState);
-        const oldSelected = selector(oldState);
+        const newSelected = memoizedSelector(newState);
+        const oldSelected = memoizedSelector(oldState);
 
-        if (!isEqual(newSelected, oldSelected)) {
+        if (!shallowEqual(newSelected, oldSelected)) {
           cachedSnapshot.current = newSelected;
           onStoreChange();
         }

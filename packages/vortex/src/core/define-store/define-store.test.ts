@@ -21,18 +21,23 @@ describe('defineStore', () => {
       };
     });
 
+    const oldState = store.getSnapshot();
+
     const subscriber = vi.fn();
 
-    store.subscribe(subscriber);
+    store.subscribe((newState, prevState) => {
+      subscriber(newState, prevState);
+    });
 
     store.action((state) => {
       state.count.set(10);
     });
 
-    const newState = store.getSnapshot();
-    const oldState = { count: 0 };
+    await new Promise((resolve) => setImmediate(resolve));
 
-    expect(subscriber).toBeCalledWith(newState, oldState);
+    const newState = store.getSnapshot();
+
+    expect(subscriber).toHaveBeenCalledWith(newState, oldState);
   });
 
   it('should allow unsubscribing from state changes', () => {
@@ -53,7 +58,7 @@ describe('defineStore', () => {
     expect(subscriber).not.toHaveBeenCalled();
   });
 
-  it('should reactively update computed values and notify subscribers', () => {
+  it('should reactively update computed values and notify subscribers', async () => {
     const store = defineStore(({ reactive, computed }) => {
       const count = reactive(1);
       const doubleCount = computed(() => count.get() * 2);
@@ -66,6 +71,7 @@ describe('defineStore', () => {
 
     const subscriber = vi.fn();
 
+    // Подписываемся на обновления
     store.subscribe(subscriber);
 
     expect(store.getSnapshot()).toEqual({
@@ -77,11 +83,14 @@ describe('defineStore', () => {
       state.count.set(2);
     });
 
+    await new Promise((resolve) => setImmediate(resolve));
+
     expect(store.getSnapshot()).toEqual({
       count: 2,
       doubleCount: 4,
     });
 
+    // Проверяем, что подписчик был вызван с правильными аргументами
     expect(subscriber).toHaveBeenCalledWith(
       { count: 2, doubleCount: 4 },
       { count: 1, doubleCount: 2 },

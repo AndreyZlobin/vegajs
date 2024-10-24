@@ -10,30 +10,39 @@ import type {
 import {
   ReactiveContext,
   isComputed,
-  isEqual,
   isReactive,
+  shallowEqual,
   toObjectKeys,
 } from '../../utils';
+import { BatchManager } from '../batch-manager';
 import { createComputed } from '../create-computed';
 import { createEffect } from '../create-effect';
 import { createReactive } from '../create-reactive';
 
-export const defineStore = <
+const defineStore = <
   T extends Record<string, unknown>,
   DIDeps extends Record<string, unknown> | undefined = undefined,
 >(
   setup: (args: DefineApi<DIDeps>) => T,
   options?: StoreOptions<T, DIDeps>,
 ): DefineStore<T> => {
+  const batchManager = new BatchManager();
+
   const listeners: Array<WatchCallback<UnwrappedState<T>>> = [];
 
   const { plugins = [], DI } = options || {};
+
   const localContext = new ReactiveContext();
+
+  let memoizedSnapshot: UnwrappedState<T> | null = null;
 
   const reactive = <Value>(initialValue: Value) =>
     createReactive(initialValue, localContext);
+
   const computed = <Value>(fn: () => Value) => createComputed(fn, localContext);
-  const effect = (fn: () => void) => createEffect(fn, localContext);
+
+  const effect = (fn: () => void) =>
+    createEffect(fn, localContext, batchManager);
 
   const createApi = () => {
     const creators: DefineLocalApi<DIDeps> = { reactive, computed, effect };
@@ -52,7 +61,7 @@ export const defineStore = <
   };
 
   const getSnapshot = () => {
-    return toObjectKeys(state).reduce((acc, key) => {
+    const newSnapshot = toObjectKeys(state).reduce((acc, key) => {
       const reactiveUnit = state[key];
 
       if (isReactive(reactiveUnit) || isComputed(reactiveUnit)) {
@@ -63,6 +72,14 @@ export const defineStore = <
 
       return acc;
     }, {} as UnwrappedState<T>);
+
+    if (memoizedSnapshot && shallowEqual(newSnapshot, memoizedSnapshot)) {
+      return memoizedSnapshot;
+    }
+
+    memoizedSnapshot = newSnapshot;
+
+    return newSnapshot;
   };
 
   let prevState = getSnapshot();
@@ -83,7 +100,7 @@ export const defineStore = <
     newState: UnwrappedState<T>,
     oldState: UnwrappedState<T>,
   ) => {
-    if (!isEqual(newState, oldState)) {
+    if (!shallowEqual(newState, oldState)) {
       listeners.forEach((listener) => listener(newState, oldState));
     }
   };
@@ -97,10 +114,14 @@ export const defineStore = <
       const reactiveUnit = state[key] as Reactive<unknown>;
 
       reactiveUnit.subscribe(() => {
-        const newState = getSnapshot();
+        batchManager.addTask(() => {
+          const newState = getSnapshot();
 
-        triggerWatchers(newState, prevState);
-        prevState = newState;
+          if (!shallowEqual(newState[key], prevState[key])) {
+            triggerWatchers(newState, prevState);
+            prevState = newState;
+          }
+        });
       });
     });
   };
@@ -113,3 +134,5 @@ export const defineStore = <
 
   return store;
 };
+
+export { defineStore };
