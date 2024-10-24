@@ -1,7 +1,5 @@
-export * from './react';
+export { useStore } from './react';
 
-export * from './core';
+export { defineStore, DIContainer } from './core';
 
-export * from './plugins';
-
-export * from './types';
+export { persistPlugin } from './plugins';
