@@ -6,85 +6,54 @@ export const createReactive = <Value>(
   context: ReactiveContext,
 ): Reactive<Value> => {
   const callbacks = new Set<(value: Value) => void>();
-  const weakSet = new WeakSet<(value: Value) => void>();
   let currentValue = initialValue;
+
+  const notifySubscribers = () => {
+    callbacks.forEach((callback) => {
+      callback(currentValue);
+    });
+  };
 
   return {
     type: 'reactive',
+
     get() {
       const activeReactive = context.getActive();
 
-      if (activeReactive && !weakSet.has(activeReactive)) {
+      if (activeReactive && !callbacks.has(activeReactive)) {
         callbacks.add(activeReactive);
-        weakSet.add(activeReactive);
       }
 
       return currentValue;
     },
+
     set(value) {
-      currentValue =
+      const newValue =
         typeof value === 'function'
           ? (value as (prevValue: Value) => Value)(currentValue)
           : value;
 
-      callbacks.forEach((callback) => {
-        callback(currentValue);
-      });
+      if (newValue !== currentValue) {
+        currentValue = newValue;
+        notifySubscribers();
+      }
     },
+
     subscribe(callback) {
-      if (!weakSet.has(callback)) {
+      if (!callbacks.has(callback)) {
         callbacks.add(callback);
-        weakSet.add(callback);
       }
 
       return () => {
         callbacks.delete(callback);
       };
     },
-    reset() {
-      currentValue = initialValue;
 
-      callbacks.forEach((callback) => {
-        callback(currentValue);
-      });
+    reset() {
+      if (currentValue !== initialValue) {
+        currentValue = initialValue;
+        notifySubscribers();
+      }
     },
   };
 };
-// function createReactive<Value>(
-//   initialValue: Value,
-//   context: ReactiveContext,
-// ): Reactive<Value> {
-//   const callbacks = new Set<(value: Value) => void>();
-//   let currentValue: Value = initialValue;
-//
-//   return {
-//     get() {
-//       const activeReactive = context.getActive();
-//
-//       if (activeReactive) {
-//         callbacks.add(activeReactive);
-//       }
-//
-//       return currentValue;
-//     },
-//     set(value) {
-//       currentValue =
-//         typeof value === 'function'
-//           ? (value as (prevValue: Value) => Value)(currentValue)
-//           : value;
-//
-//       callbacks.forEach((callback) => callback(currentValue));
-//     },
-//     subscribe(callback) {
-//       callbacks.add(callback);
-//
-//       return () => {
-//         callbacks.delete(callback);
-//       };
-//     },
-//     reset() {
-//       currentValue = initialValue;
-//       callbacks.forEach((callback) => callback(currentValue));
-//     },
-//   };
-// }
