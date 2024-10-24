@@ -3,20 +3,22 @@ import { defineConfig, moduleTools } from '@modern-js/module-tools';
 export default defineConfig({
   plugins: [moduleTools()],
   buildConfig: {
+    platform: 'browser',
     target: 'esnext',
     minify: 'terser',
     jsx: 'automatic',
-    buildType: 'bundleless',
+    splitting: true,
+    format: 'esm',
+    buildType: 'bundleless', // Указываем на отсутствие бандла
     input: [
       'src/**/*.ts',
       'src/**/*.tsx',
+      '!src/types.ts',
       '!src/**/*.spec.ts',
       '!src/**/*.spec.tsx',
       '!src/**/*.test.ts',
       '!src/**/*.test.tsx',
     ],
-    platform: 'browser',
     tsconfig: './tsconfig.build.json',
   },
-  buildPreset: 'npm-library',
 });
