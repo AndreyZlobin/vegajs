@@ -41,5 +41,17 @@
 		"tests:ci": "vitest run --reporter=junit --outputFile.junit=junit.xml",
 		"tests:watch": "vitest",
 		"typecheck": "tsc --noEmit"
-	}
+	},
+  "peerDependencies": {
+    "@types/react": ">=18.0.0",
+    "react": ">=18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
+  }
 }

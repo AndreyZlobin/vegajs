@@ -267,7 +267,6 @@ const DevTools = () => {
   const toggleDevTools = () => {
     const newIsOpen = !isOpen;
 
-    console.log(newIsOpen);
     setIsOpen(newIsOpen);
     localStorage.setItem(WIDGET_OPEN_KEY, String(newIsOpen));
   };
@@ -477,19 +476,15 @@ declare global {
     myVariable: number;
   }
 }
-interface DevtoolsOptions {
-  enableDevTools?: boolean;
-}
 
-export function initDevtools(options?: DevtoolsOptions) {
-  const enableDevTools =
-    options?.enableDevTools ?? process.env.NODE_ENV === 'development';
-
-  if (!enableDevTools) {
-    return;
-  }
-
-  if (typeof window === 'undefined' || typeof document === 'undefined') {
+export function initDevtools({
+  enableDevTools = process.env.NODE_ENV === 'development',
+} = {}) {
+  if (
+    !enableDevTools ||
+    typeof window === 'undefined' ||
+    typeof document === 'undefined'
+  ) {
     return;
   }
 
