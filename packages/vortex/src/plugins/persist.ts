@@ -43,31 +43,35 @@ export const persistPlugin =
       );
     };
 
-    const savedState = localStorage.getItem(key);
+    if (typeof window !== 'undefined') {
+      const savedState = localStorage.getItem(key);
 
-    try {
-      if (savedState) {
-        try {
-          const parsedState = JSON.parse(savedState) as UnwrappedState<T>;
+      try {
+        if (savedState) {
+          try {
+            const parsedState = JSON.parse(savedState) as UnwrappedState<T>;
 
-          store.action((s) => {
-            toObjectKeys(parsedState).forEach((el) => {
-              if (isReactive(s[el])) {
-                s[el].set(() => parsedState[el]);
-              }
+            store.action((s) => {
+              toObjectKeys(parsedState).forEach((el) => {
+                if (isReactive(s[el])) {
+                  s[el].set(() => parsedState[el]);
+                }
+              });
             });
-          });
-        } catch (error) {
-          console.error('Error parsing state:', error);
-          localStorage.removeItem(key);
+          } catch (error) {
+            console.error('Error parsing state:', error);
+            localStorage.removeItem(key);
+          }
+        } else {
+          localStorage.setItem(key, JSON.stringify(toNewState(state)));
         }
-      } else {
-        localStorage.setItem(key, JSON.stringify(toNewState(state)));
+      } finally {
       }
-    } finally {
+
+      store.subscribe((newState) => {
+        localStorage.setItem(key, JSON.stringify(toNewState(newState)));
+      });
     }
 
-    return store.subscribe((newState) => {
-      localStorage.setItem(key, JSON.stringify(toNewState(newState)));
-    });
+    return store;
   };
