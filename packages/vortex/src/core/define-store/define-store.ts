@@ -18,6 +18,7 @@ import { BatchManager } from '../batch-manager';
 import { createComputed } from '../create-computed';
 import { createEffect } from '../create-effect';
 import { createReactive } from '../create-reactive';
+import { initDevtoolsStore, observeStore } from './devtools-connection';
 
 const defineStore = <
   T extends Record<string, unknown>,
@@ -30,7 +31,11 @@ const defineStore = <
 
   const listeners: Array<WatchCallback<UnwrappedState<T>>> = [];
 
-  const { plugins = [], DI } = options || {};
+  const {
+    plugins = [],
+    DI,
+    name = `unknown_${new Date().toISOString()}`,
+  } = options || {};
 
   const localContext = new ReactiveContext();
 
@@ -101,6 +106,7 @@ const defineStore = <
     oldState: UnwrappedState<T>,
   ) => {
     if (!shallowEqual(newState, oldState)) {
+      observeStore(newState, oldState, name);
       listeners.forEach((listener) => listener(newState, oldState));
     }
   };
@@ -126,6 +132,7 @@ const defineStore = <
     });
   };
 
+  initDevtoolsStore(name, prevState);
   observeReactivity();
 
   const store: DefineStore<T> = { state, getSnapshot, action, subscribe };

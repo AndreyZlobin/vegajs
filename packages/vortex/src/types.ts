@@ -60,4 +60,5 @@ export type StoreOptions<
 > = {
   plugins?: Plugin<T>[];
   DI?: DIContainer<Deps>;
+  name?: string;
 };

@@ -41,8 +41,5 @@
 		"tests:ci": "vitest run --reporter=junit --outputFile.junit=junit.xml",
 		"tests:watch": "vitest",
 		"typecheck": "tsc --noEmit"
-	},
-	"dependencies": {
-		"react": "18.3.1"
 	}
 }
