@@ -477,8 +477,18 @@ declare global {
     myVariable: number;
   }
 }
+interface DevtoolsOptions {
+  enableDevTools?: boolean;
+}
 
-export function initDevtools() {
+export function initDevtools(options?: DevtoolsOptions) {
+  const enableDevTools =
+    options?.enableDevTools ?? process.env.NODE_ENV === 'development';
+
+  if (!enableDevTools) {
+    return;
+  }
+
   if (typeof window === 'undefined' || typeof document === 'undefined') {
     return;
   }
