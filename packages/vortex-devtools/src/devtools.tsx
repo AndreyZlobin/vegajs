@@ -236,7 +236,8 @@ const DataTitle = styled.h4`
 `;
 
 const DataContent = styled.pre`
-  background: #f1f5f9;
+  background: #1e293b;
+  color: #fff;
   padding: 16px;
   border-radius: 4px;
   white-space: pre-wrap;
@@ -478,7 +479,10 @@ declare global {
 }
 
 export function initDevtools({
-  enableDevTools = process.env.NODE_ENV === 'development',
+  enableDevTools = (typeof import.meta !== 'undefined' &&
+    // @ts-ignore
+    import.meta.env?.MODE === 'development') ||
+    (typeof process !== 'undefined' && process.env?.NODE_ENV === 'development'),
 } = {}) {
   if (
     !enableDevTools ||
